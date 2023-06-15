@@ -43,14 +43,6 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Painel'),
-            onTap: () {
-              Navigator.of(context)
-                  .popUntil((route) => !Navigator.of(context).canPop());
-              Navigator.popAndPushNamed(context, '/panel');
-            },
-          ),
-          ListTile(
             title: const Text('Cadastrar Usuário'),
             onTap: () {
               Navigator.pushNamed(context, '/auth/registration');

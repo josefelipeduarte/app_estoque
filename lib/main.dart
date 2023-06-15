@@ -4,11 +4,9 @@ import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/auth/login_page.dart';
 import 'package:app_estoque/src/auth/registration/registration_page.dart';
 import 'package:app_estoque/src/home/home_page.dart';
-import 'package:app_estoque/src/panel/panel_page.dart';
 import 'package:app_estoque/src/schools/school_form_page.dart';
 import 'package:app_estoque/src/schools/schools_list_page.dart';
 import 'package:app_estoque/src/shared/themes/color_schemes.g.dart';
-import 'package:app_estoque/src/auth/auth_service.dart';
 
 void main() {
   // ignore: prefer_const_constructors
@@ -50,7 +48,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/schools/list': (context) => const SchoolsListPage(),
         '/schools/form': (context) => const SchoolFormPage(),
-        '/panel': (context) => PanelPage(),
       },
     );
   }
