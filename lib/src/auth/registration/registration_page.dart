@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/auth/registration/registration_repository.dart';
 
+import '../../shared/components/app_scaffold.dart';
 import 'entities/registration.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _RegistrationState extends State<RegistrationPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Criar Conta',
+          'Cadastrar Usuário',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),

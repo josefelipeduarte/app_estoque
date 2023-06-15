@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     final authService = Provider.of<AuthService>(context);
 
     return AppScaffold(
-      pageTitle: 'Home',
+      pageTitle: 'Página inicial',
       child: Center(
         child: ElevatedButton(
           onPressed: () {},

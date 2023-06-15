@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 
-//import 'package:safe_schools/src/shared/components/app_drawer.dart';
-//import 'package:safe_schools/src/shared/components/app_scaffold.dart';
-
-//import 'package:safe_schools/src/shared/components/app_drawer.dart';
-//import 'package:safe_schools/src/shared/components/app_scaffold.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -48,13 +42,8 @@ class _LoginPageState extends State<LoginPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'lib/src/assets/images/escola.png',
-              fit: BoxFit.cover,
-              height: 40,
-            ),
             const Text(
-              'Escolas Seguras',
+              'App Estoque',
               style: TextStyle(color: Colors.white),
             ),
           ],
@@ -98,8 +87,9 @@ class FormItems extends StatelessWidget {
             child: const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "O Aplicativo Escola Segura trata-se de uma iniciativa do IFGoiano para mitigar os efeitos devastadores causados pelos ataques a escolas. \n A proposta central é trazer mais segurança e integrar a comunidade a escola com a forças de segurança. \n Este trabalho é um complemento as ações delimitadas pelo governo do estado.",
+                "App Estoque Master, cadastre aqui os seriais de ONUS recebidas no suporte.",
                 style: TextStyle(color: Colors.white, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -151,12 +141,17 @@ class FormItems extends StatelessWidget {
                       if (value == true) {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, '/home');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    'Não foi possivel logar no sistema.')));
                       }
                     },
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: Color.fromARGB(255, 0, 81, 255),
                 ),
                 child: const Text(
                   'Entrar',
@@ -165,19 +160,6 @@ class FormItems extends StatelessWidget {
               ),
               const SizedBox(
                 width: 8.0,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/auth/registration');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                child: const Text(
-                  'Registrar',
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
             ],
           )

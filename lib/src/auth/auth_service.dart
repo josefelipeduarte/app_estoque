@@ -29,7 +29,7 @@ class AuthService with ChangeNotifier {
     };
     final response = await http.post(
       Uri.parse(
-        '$_apiBasePath/api/auth/login',
+        '$_apiBasePath/api/auth/entrar',
       ),
       body: jsonEncode(payload),
       headers: await _header(false),
@@ -85,7 +85,7 @@ class AuthService with ChangeNotifier {
   Future logout() async {
     final response = await http.post(
       Uri.parse(
-        '$_apiBasePath/api/auth/logout',
+        '$_apiBasePath/api/auth/sair',
       ),
       headers: await _header(true),
     );
