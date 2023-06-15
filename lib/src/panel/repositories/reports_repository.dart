@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:safe_schools/src/shared/settings/const_configs.dart';
+import 'package:app_estoque/src/shared/settings/const_configs.dart';
 import 'package:http/http.dart' as http;
 
 class ReportsRepository {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:safe_schools/src/panel/repositories/reports_repository.dart';
-import 'package:safe_schools/src/shared/components/app_scaffold.dart';
+import 'package:app_estoque/src/panel/repositories/reports_repository.dart';
+import 'package:app_estoque/src/shared/components/app_scaffold.dart';
 
 class PanelPage extends StatefulWidget {
   @override

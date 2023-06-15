@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safe_schools/src/auth/auth_service.dart';
-import 'package:safe_schools/src/shared/helpers/string_helpers.dart';
+import 'package:app_estoque/src/auth/auth_service.dart';
+import 'package:app_estoque/src/shared/helpers/string_helpers.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

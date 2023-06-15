@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safe_schools/src/shared/components/app_drawer.dart';
+import 'package:app_estoque/src/shared/components/app_drawer.dart';
 
 class AppScaffold extends StatelessWidget {
   final String? pageTitle;

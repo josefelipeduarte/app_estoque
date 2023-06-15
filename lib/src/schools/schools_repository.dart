@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:safe_schools/src/schools/school.dart';
+import 'package:app_estoque/src/schools/school.dart';
 
 import '../shared/repositories/base_repository.dart';
 

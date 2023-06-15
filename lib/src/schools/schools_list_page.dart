@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:safe_schools/src/schools/school.dart';
-import 'package:safe_schools/src/schools/school_form_page.dart';
-import 'package:safe_schools/src/schools/schools_repository.dart';
+import 'package:app_estoque/src/schools/school.dart';
+import 'package:app_estoque/src/schools/school_form_page.dart';
+import 'package:app_estoque/src/schools/schools_repository.dart';
 
 import '../shared/components/app_scaffold.dart';
 

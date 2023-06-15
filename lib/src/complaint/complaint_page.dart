@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:safe_schools/src/complaint/complaint_repository.dart';
-import 'package:safe_schools/src/complaint/entities/complaint.dart';
-import 'package:safe_schools/src/shared/components/app_scaffold.dart';
-import 'package:safe_schools/src/shared/enums/states.dart';
-import 'package:safe_schools/src/shared/repositories/school_repository.dart';
+import 'package:app_estoque/src/complaint/complaint_repository.dart';
+import 'package:app_estoque/src/complaint/entities/complaint.dart';
+import 'package:app_estoque/src/shared/components/app_scaffold.dart';
+import 'package:app_estoque/src/shared/enums/states.dart';
+import 'package:app_estoque/src/shared/repositories/school_repository.dart';
 
 class ComplaintPage extends StatefulWidget {
   const ComplaintPage({super.key});
