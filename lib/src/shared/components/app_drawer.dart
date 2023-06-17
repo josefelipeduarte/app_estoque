@@ -35,23 +35,30 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Home'),
+            title: const Text('Inicio'),
             onTap: () {
               Navigator.of(context)
                   .popUntil((route) => !Navigator.of(context).canPop());
               Navigator.popAndPushNamed(context, '/home');
             },
           ),
-          ListTile(
-            title: const Text('Cadastrar Usuário'),
-            onTap: () {
-              Navigator.pushNamed(context, '/auth/registration');
-            },
-          ),
+          //Desabilitado por enquanto, posterior para cadastrar os usuários que acessam o sistema
+          // ListTile(
+          //   title: const Text('Cadastrar Usuário'),
+          //   onTap: () {
+          //     Navigator.pushNamed(context, '/auth/registration');
+          //   },
+          // ),
           ListTile(
             title: const Text('Cadastrar ONU'),
             onTap: () {
-              Navigator.pushNamed(context, '/cadastrar_onu/cadastrar');
+              Navigator.pushNamed(context, '/serial_onu/cadastrar');
+            },
+          ),
+          ListTile(
+            title: const Text('Pesquisar ONU'),
+            onTap: () {
+              Navigator.pushNamed(context, '/serial_onu/pesquisar');
             },
           ),
           ListTile(

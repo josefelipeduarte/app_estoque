@@ -1,36 +1,33 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:app_estoque/src/shared/enums/states.dart';
+import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_estoque/src/shared/settings/const_configs.dart';
 
-class SchoolRepository {
+class PesquisarOnuRepository {
   static const String _apiBasePath = ConstConfigs.apiUrl;
   static const String _authTokenKey = 'auth_token';
-
   final _storage = const FlutterSecureStorage();
 
-  Future<Map<int, String>> index(States state) async {
+  Future<List<Map<String, dynamic>>> index(PesquisarOnu seriali) async {
     final response = await http.get(
       Uri.parse(
-        "$_apiBasePath/api/schools?state=${state.name}",
+        "$_apiBasePath/api/serial/pesquisar/${seriali.serial_estoque}",
       ),
       headers: await _header(),
     );
 
-    if (response.statusCode != 200) {
-      return {};
-    }
-
     final responseJson = jsonDecode(response.body);
 
-    Map<int, String> output = {};
+    List<Map<String, dynamic>> itemList = [];
     for (var i = 0; i < responseJson["data"].length; i++) {
-      output[responseJson["data"][i]["id"]] = responseJson["data"][i]["name"];
+      itemList.add({
+        "serial_estoque": responseJson["data"][i]["serial_estoque"],
+      });
     }
-
-    return output;
+    print(itemList);
+    return itemList;
   }
 
   Future<Map<String, String>> _header() async {

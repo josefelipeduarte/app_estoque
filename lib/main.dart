@@ -1,12 +1,12 @@
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_page.dart';
+import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
+import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/auth/login_page.dart';
 import 'package:app_estoque/src/auth/registration/registration_page.dart';
 import 'package:app_estoque/src/home/home_page.dart';
-import 'package:app_estoque/src/schools/school_form_page.dart';
-import 'package:app_estoque/src/schools/schools_list_page.dart';
 import 'package:app_estoque/src/shared/themes/color_schemes.g.dart';
 
 void main() {
@@ -47,9 +47,8 @@ class MyApp extends StatelessWidget {
         '/auth/login': (context) => const LoginPage(),
         '/auth/registration': (context) => const RegistrationPage(),
         '/home': (context) => const HomePage(),
-        '/schools/list': (context) => const SchoolsListPage(),
-        '/schools/form': (context) => const SchoolFormPage(),
-        '/cadastrar_onu/cadastrar': (context) => const CadastrarOnuPage(),
+        '/serial_onu/cadastrar': (context) => const CadastrarOnuPage(),
+        '/serial_onu/pesquisar': (context) => const PesquisarOnuPage(),
       },
     );
   }
