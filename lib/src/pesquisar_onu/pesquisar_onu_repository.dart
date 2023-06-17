@@ -21,9 +21,10 @@ class PesquisarOnuRepository {
     final responseJson = jsonDecode(response.body);
 
     List<Map<String, dynamic>> itemList = [];
-    for (var i = 0; i < responseJson["data"].length; i++) {
+    for (var i = 0; i < responseJson.length; i++) {
       itemList.add({
-        "serial_estoque": responseJson["data"][i]["serial_estoque"],
+        "id": responseJson[i]["id"],
+        "serial_estoque": responseJson[i]["serial_estoque"],
       });
     }
     print(itemList);
