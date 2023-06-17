@@ -103,7 +103,7 @@ class AuthService with ChangeNotifier {
       String? authToken = await _storage.read(key: _authTokenKey);
 
       if (authToken == null) {
-        throw Exception('Not Logged.');
+        throw Exception('Não logado');
       }
 
       return {

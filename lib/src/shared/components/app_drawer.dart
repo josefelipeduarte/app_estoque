@@ -49,6 +49,12 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text('Cadastrar ONU'),
+            onTap: () {
+              Navigator.pushNamed(context, '/cadastrar_onu/cadastrar');
+            },
+          ),
+          ListTile(
             title: const Text('Escolas'),
             onTap: () {
               Navigator.pushNamed(context, '/schools/list');

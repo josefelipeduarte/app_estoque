@@ -1,3 +1,4 @@
+import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/schools/list': (context) => const SchoolsListPage(),
         '/schools/form': (context) => const SchoolFormPage(),
+        '/cadastrar_onu/cadastrar': (context) => const CadastrarOnuPage(),
       },
     );
   }
