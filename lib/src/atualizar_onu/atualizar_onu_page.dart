@@ -88,6 +88,7 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
       child: Text('Equipamento de Retirada'),
     ),
   ];
+
   List<DropdownMenuItem<String>> responsavelList = [
     DropdownMenuItem(
       value: 'Adriano',
@@ -106,6 +107,11 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
   String? selectedModel;
   String? selectedMotivo;
   String? selectedResponsavel;
+
+//Seta os items que retornaram da consulta
+  String updateModel = "501";
+  String updateMotivo = "Retirada";
+  String updateResponsavel = "Adriano";
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +146,7 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
         margin: const EdgeInsets.only(top: 5),
         child: DropdownButtonFormField<String>(
           hint: const Text('Selecione o modelo'),
+          value: updateModel,
           items: modeloOnuList,
           onChanged: (value) {
             setState(() {
@@ -220,6 +227,7 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
         margin: const EdgeInsets.only(top: 5),
         child: DropdownButtonFormField<String>(
           hint: const Text('Selecione o motivo'),
+          value: updateMotivo,
           items: motivoList,
           onChanged: (value) {
             setState(() {
@@ -259,6 +267,7 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
         margin: const EdgeInsets.only(top: 5),
         child: DropdownButtonFormField<String>(
           hint: const Text('Selecione o responsavel'),
+          value: updateResponsavel,
           items: responsavelList,
           onChanged: (value) {
             setState(() {
