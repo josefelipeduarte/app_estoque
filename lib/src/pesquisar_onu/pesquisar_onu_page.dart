@@ -19,20 +19,20 @@ class _FormPageState extends State<PesquisarOnuPage> {
       pageTitle: 'Pesquisar ONU',
       child: Padding(
         padding: EdgeInsets.all(16.0),
-        child: SignUpPesquisarOnu(),
+        child: SerialPesquisarOnu(),
       ),
     );
   }
 }
 
-class SignUpPesquisarOnu extends StatefulWidget {
-  const SignUpPesquisarOnu({super.key});
+class SerialPesquisarOnu extends StatefulWidget {
+  const SerialPesquisarOnu({super.key});
 
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  _SerialFormState createState() => _SerialFormState();
 }
 
-class _SignUpFormState extends State<SignUpPesquisarOnu> {
+class _SerialFormState extends State<SerialPesquisarOnu> {
   final _formKey = GlobalKey<FormState>();
 
   //gera Controller para coletar dados do serial
@@ -47,6 +47,12 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
         children: getFormWidget(),
       ),
     );
+  }
+
+  void updateItemList() async {
+    setState(() {
+      itemList = itemList;
+    });
   }
 
   List<Widget> getFormWidget() {
@@ -83,7 +89,10 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
           ),
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Não deixe o campo vazio';
+              return 'Digite o Serial ex. c63123';
+            }
+            if (value.length != 6) {
+              return 'O Serial deve ter exatamente 6 caracteres exemplo: c61234';
             }
             return null;
           },
@@ -101,7 +110,12 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Serial enviado para pesquisa.')));
       }
+
       print(itemList);
+      //da um set State na lista pra ela ser apresentada no site.
+      setState(() {
+        updateItemList();
+      });
     }
 
     formWidget.add(
@@ -158,9 +172,35 @@ class ItemListWidget extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Implemente a lógica para a ação de deletar o item com o ID correspondente
-                  String id = item['id'].toString();
-                  print("Item $id deletado com sucesso");
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Confirmação'),
+                        content: Text('Tem certeza que deseja excluir o item?'),
+                        actions: [
+                          TextButton(
+                            child: Text('Cancelar'),
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Fechar o diálogo
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Excluir'),
+                            onPressed: () async {
+                              String id = item['id'].toString();
+                              int parsedId = int.parse(id);
+
+                              await PesquisarOnuRepository()
+                                  .deleteSerial(parsedId);
+
+                              Navigator.of(context).pop(); // Fechar o diálogo
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Text('Deletar'),
               ),

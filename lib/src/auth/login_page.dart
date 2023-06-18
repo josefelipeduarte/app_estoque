@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             const Text(
               'App Estoque',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
           ],
         ),
@@ -52,11 +52,21 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: FormItems(
-              userName: userName,
-              password: password,
-              authService: authService,
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Image.network(
+                  'https://media.tenor.com/1G7KLUiquh0AAAAi/typing-fast.gif',
+                  width: 100, // Defina a largura desejada da imagem
+                  height: 100, // Defina a altura desejada da imagem
+                ),
+                const SizedBox(height: 5),
+                FormItems(
+                  userName: userName,
+                  password: password,
+                  authService: authService,
+                ),
+              ],
             ),
           ),
         ),
@@ -87,8 +97,9 @@ class FormItems extends StatelessWidget {
             child: const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "App Estoque Master, cadastre aqui os seriais de ONUS recebidas no suporte.",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                "App Estoque Master \n Cadastre aqui os seriais de ONUS recebidas no suporte.",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 0, 81, 255), fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -103,10 +114,11 @@ class FormItems extends StatelessWidget {
                   style: BorderStyle.none,
                 ),
               ),
-              hintText: 'Usuário',
-              hintStyle: const TextStyle(color: Colors.white),
+              hintText: 'Email',
+              hintStyle:
+                  const TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 8.0,
@@ -123,9 +135,10 @@ class FormItems extends StatelessWidget {
                 ),
               ),
               hintText: 'Senha',
-              hintStyle: const TextStyle(color: Colors.white),
+              hintStyle:
+                  const TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.black),
             obscureText: true,
           ),
           const SizedBox(

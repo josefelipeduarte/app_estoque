@@ -13,7 +13,7 @@ class PesquisarOnuRepository {
   Future<List<Map<String, dynamic>>> index(PesquisarOnu seriali) async {
     final response = await http.get(
       Uri.parse(
-        "$_apiBasePath/api/serial/pesquisar/${seriali.serial_estoque}",
+        "$_apiBasePath/api/serial/pesquisar/prks00${seriali.serial_estoque}",
       ),
       headers: await _header(),
     );
@@ -29,6 +29,18 @@ class PesquisarOnuRepository {
     }
     //print(itemList);
     return itemList;
+  }
+
+  Future deleteSerial(int parsedId) async {
+    print("Deletado abaixo:");
+    print(parsedId);
+
+    await http.delete(
+      Uri.parse(
+        "$_apiBasePath/api/serial/$parsedId",
+      ),
+      headers: await _header(),
+    );
   }
 
   Future<Map<String, String>> _header() async {
