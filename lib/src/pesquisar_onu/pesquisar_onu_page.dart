@@ -16,7 +16,7 @@ class _FormPageState extends State<PesquisarOnuPage> {
   @override
   Widget build(BuildContext context) {
     return const AppScaffold(
-      pageTitle: 'Pesquise aqui o Serial de uma ONU',
+      pageTitle: 'Pesquisar ONU',
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: SignUpPesquisarOnu(),
@@ -37,6 +37,7 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
 
   //gera Controller para coletar dados do serial
   final serial = TextEditingController();
+  List<Map<String, dynamic>> itemList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -89,22 +90,18 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
         ),
       ),
     );
-
-    void onPressedSubmit() {
+    void onPressedSubmit() async {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState?.save();
-        //imprime no console os dados.
-        //print("Serial ONU: " + serial.text);
 
-        PesquisarOnuRepository().index(PesquisarOnu(
+        itemList = await PesquisarOnuRepository().index(PesquisarOnu(
           serial_estoque: serial.text,
         ));
 
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Onu recebida com sucesso!')));
-
-        //print("Retorne a lista: ${suaFuncao()}");
+            const SnackBar(content: Text('Serial enviado para pesquisa.')));
       }
+      print(itemList);
     }
 
     formWidget.add(
@@ -115,11 +112,71 @@ class _SignUpFormState extends State<SignUpPesquisarOnu> {
               onPressedSubmit, // Chama o método onPressedSubmit e envia os dados para o repository
           child: const Text(
             'Enviar',
+            style: TextStyle(
+              color: Colors.white, // Defina a cor do texto como branca
+            ),
+          ),
+
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            backgroundColor: const Color.fromARGB(
+                255, 0, 81, 255), // Defina a cor de fundo desejada
           ),
         ),
       ),
     );
 
+    //apresenta a lista de seriais
+    formWidget.add(
+      ItemListWidget(itemList: itemList),
+    );
+
     return formWidget;
+  }
+}
+
+class ItemListWidget extends StatelessWidget {
+  final List<Map<String, dynamic>> itemList;
+
+  const ItemListWidget({required this.itemList});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: itemList.length,
+      itemBuilder: (context, index) {
+        final item = itemList[index];
+
+        return ListTile(
+          title: Text('ID: ${item['id']}'),
+          subtitle: Text('Serial: ${item['serial_estoque']}'),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Implemente a lógica para a ação de deletar o item com o ID correspondente
+                  String id = item['id'].toString();
+                  print("Item $id deletado com sucesso");
+                },
+                child: Text('Deletar'),
+              ),
+              SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () {
+                  // Implemente a lógica para a ação de editar o item com o ID correspondente
+                  String id = item['id'].toString();
+                  print("Item $id editado com sucesso");
+                },
+                child: Text('Editar'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

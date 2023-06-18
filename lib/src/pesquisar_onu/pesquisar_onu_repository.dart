@@ -27,7 +27,7 @@ class PesquisarOnuRepository {
         "serial_estoque": responseJson[i]["serial_estoque"],
       });
     }
-    print(itemList);
+    //print(itemList);
     return itemList;
   }
 
