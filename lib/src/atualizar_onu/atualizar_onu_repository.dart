@@ -10,21 +10,39 @@ class AtualizarOnuRepository {
   static const String _authTokenKey = 'auth_token';
   final _storage = const FlutterSecureStorage();
 
-  Future<List<AtualizarOnu>> index(AtualizarOnu id) async {
+  Future<List<Map<String, dynamic>>> index(AtualizarOnu identification) async {
     final response = await http.get(
       Uri.parse(
-        "$_apiBasePath/api/serial/3",
+        "$_apiBasePath/api/serial/${identification.id}",
       ),
       headers: await _header(),
     );
 
     final responseJson = jsonDecode(response.body);
-    print(responseJson);
-    List<AtualizarOnu> output = [];
+    List<Map<String, dynamic>> itemList = [];
 
-    output.add(AtualizarOnu.fromJson(responseJson));
+    if (responseJson != null) {
+      var item = responseJson;
 
-    return output;
+      var tipoOnuEstoque = item["tipo_onu_estoque"];
+      var serialEstoque = item["serial_estoque"];
+      var motivoEntrega = item["motivo_entrega"];
+      var descEstoque = item["desc_estoque"];
+      var nomeResponsavel = item["nome_responsavel"];
+
+      itemList.add({
+        "tipo_onu_estoque": tipoOnuEstoque,
+        "serial_estoque": serialEstoque,
+        "motivo_entrega": motivoEntrega,
+        "desc_estoque": descEstoque,
+        "nome_responsavel": nomeResponsavel,
+      });
+    } else {
+      print("Consulta Nula. Nada gravado.");
+    }
+
+    print(itemList[0]["serial_estoque"]);
+    return itemList;
   }
 
   Future<Map<String, String>> _header() async {

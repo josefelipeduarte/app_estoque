@@ -210,13 +210,13 @@ class ItemListWidget extends StatelessWidget {
                 onPressed: () {
                   // Implemente a lógica para a ação de editar o item com o ID correspondente
                   String id = item['id'].toString();
-                  print("Item $id editado com sucesso");
 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AtualizarOnuPage(id: id),
-                    ),
+                        builder: (context) => AtualizarOnuPage(
+                              id: id,
+                            )),
                   );
                 },
                 child: Text('Editar'),

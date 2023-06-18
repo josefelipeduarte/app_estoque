@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_estoque/src/atualizar_onu/entities/atualizar_onu.dart';
 import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'dart:async';
 
 class AtualizarOnuPage extends StatefulWidget {
   final String id;
-
   const AtualizarOnuPage({required this.id, Key? key}) : super(key: key);
 
   @override
@@ -26,16 +27,26 @@ class _FormPageState extends State<AtualizarOnuPage> {
     _fetchData(widget.id);
   }
 
-  void _fetchData(String id) {
+  Future<void> _fetchData(String id) async {
     int parsedId = int.parse(id);
-    AtualizarOnuRepository().index(AtualizarOnu(
+    var lista = await AtualizarOnuRepository().index(AtualizarOnu(
       id: parsedId,
       tipo_onu_estoque: '',
       motivo_entrega: '',
       desc_estoque: '',
       nome_responsavel: '',
     ));
-    print('Consultando dados com ID: $id');
+    print('Consultando dados com ID 1: $id');
+    for (var item in lista) {
+      // Acesse os valores individuais do item, por exemplo:
+      String tipoOnuEstoque = item["tipo_onu_estoque"];
+      String serialEstoque = item["serial_estoque"];
+      String motivoEntrega = item["motivo_entrega"];
+      String descEstoque = item["desc_estoque"];
+      String nomeResponsavel = item["nome_responsavel"];
+
+      print(tipoOnuEstoque);
+    }
   }
 
   @override
@@ -108,10 +119,13 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
   String? selectedMotivo;
   String? selectedResponsavel;
 
+// Use o método fromJson para obter o objeto AtualizarOnu
 //Seta os items que retornaram da consulta
   String updateModel = "501";
   String updateMotivo = "Retirada";
   String updateResponsavel = "Adriano";
+  String updateSerial = "prks00c12345";
+  String? updateDescricao = "";
 
   @override
   Widget build(BuildContext context) {
@@ -314,6 +328,7 @@ class _SignUpFormState extends State<SignUpAtualizarOnu> {
             hintText: 'Digite aqui',
             border: OutlineInputBorder(),
           ),
+          initialValue: null,
           validator: (value) {
             if (value!.isEmpty) {
               return 'Informe uma descrição para o recebimento.';

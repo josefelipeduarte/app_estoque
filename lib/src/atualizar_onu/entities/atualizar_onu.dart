@@ -14,13 +14,13 @@ class AtualizarOnu {
     required this.nome_responsavel,
     this.user,
   });
-  factory AtualizarOnu.fromJson(Map<String, dynamic> json) {
+  factory AtualizarOnu.fromJson(Map<String, dynamic> dados) {
     return AtualizarOnu(
-      id: json['id'] ?? '',
-      tipo_onu_estoque: json['tipo_onu_estoque'],
-      motivo_entrega: json['motivo_entrega'],
-      desc_estoque: json['desc_estoque'],
-      nome_responsavel: json['nome_responsavel'],
+      id: dados['id'] ?? '',
+      tipo_onu_estoque: dados['tipo_onu_estoque'],
+      motivo_entrega: dados['motivo_entrega'],
+      desc_estoque: dados['desc_estoque'],
+      nome_responsavel: dados['nome_responsavel'],
     );
   }
 }

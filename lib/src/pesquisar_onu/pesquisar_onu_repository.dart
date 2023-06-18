@@ -24,7 +24,11 @@ class PesquisarOnuRepository {
     for (var i = 0; i < responseJson.length; i++) {
       itemList.add({
         "id": responseJson[i]["id"],
+        "tipo_onu_estoque": responseJson[i]["tipo_onu_estoque"],
         "serial_estoque": responseJson[i]["serial_estoque"],
+        "motivo_entrega": responseJson[i]["motivo_entrega"],
+        "desc_estoque": responseJson[i]["desc_estoque"],
+        "nome_responsavel": responseJson[i]["nome_responsavel"],
       });
     }
     //print(itemList);
