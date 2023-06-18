@@ -1,3 +1,4 @@
+import 'package:app_estoque/src/atualizar_onu/atualizar_onu_page.dart';
 import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
 import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_repository.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _SerialFormState extends State<SerialPesquisarOnu> {
     );
   }
 
-  void updateItemList() async {
+  void updateItemList() {
     setState(() {
       itemList = itemList;
     });
@@ -84,7 +85,7 @@ class _SerialFormState extends State<SerialPesquisarOnu> {
           keyboardType: TextInputType.text,
           maxLines: 1,
           decoration: const InputDecoration(
-            hintText: 'Digite aqui',
+            hintText: 'Digite aqui ex. c12345',
             border: OutlineInputBorder(),
           ),
           validator: (value) {
@@ -210,6 +211,13 @@ class ItemListWidget extends StatelessWidget {
                   // Implemente a lógica para a ação de editar o item com o ID correspondente
                   String id = item['id'].toString();
                   print("Item $id editado com sucesso");
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AtualizarOnuPage(id: id),
+                    ),
+                  );
                 },
                 child: Text('Editar'),
               ),

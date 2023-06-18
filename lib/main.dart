@@ -1,3 +1,4 @@
+import 'package:app_estoque/src/atualizar_onu/atualizar_onu_page.dart';
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_page.dart';
 import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
 import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_page.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/serial_onu/cadastrar': (context) => const CadastrarOnuPage(),
         '/serial_onu/pesquisar': (context) => const PesquisarOnuPage(),
+        //'/serial_onu/atualizar': (context) => const AtualizarOnuPage(),
       },
     );
   }

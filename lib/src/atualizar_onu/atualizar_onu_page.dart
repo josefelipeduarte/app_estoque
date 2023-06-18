@@ -1,39 +1,63 @@
+import 'package:app_estoque/src/atualizar_onu/entities/atualizar_onu.dart';
 import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
 import 'package:flutter/material.dart';
-import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_repository.dart';
+import 'package:app_estoque/src/atualizar_onu/atualizar_onu_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
-class CadastrarOnuPage extends StatefulWidget {
-  const CadastrarOnuPage({super.key});
+class AtualizarOnuPage extends StatefulWidget {
+  final String id;
+
+  const AtualizarOnuPage({required this.id, Key? key}) : super(key: key);
 
   @override
   _FormPageState createState() => _FormPageState();
 }
 
-class _FormPageState extends State<CadastrarOnuPage> {
+class _FormPageState extends State<AtualizarOnuPage> {
+  get id => null;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _fetchData(widget.id);
+  }
+
+  void _fetchData(String id) {
+    int parsedId = int.parse(id);
+    AtualizarOnuRepository().index(AtualizarOnu(
+      id: parsedId,
+      tipo_onu_estoque: '',
+      motivo_entrega: '',
+      desc_estoque: '',
+      nome_responsavel: '',
+    ));
+    print('Consultando dados com ID: $id');
+  }
+
   @override
   Widget build(BuildContext context) {
     return const AppScaffold(
-      pageTitle: 'Cadastrar ONU Recebida',
+      pageTitle: 'Atualizar ONU',
       child: Padding(
         padding: EdgeInsets.all(16.0),
-        child: SignUpCadastrarOnu(),
+        child: SignUpAtualizarOnu(),
       ),
     );
   }
 }
 
-class SignUpCadastrarOnu extends StatefulWidget {
-  const SignUpCadastrarOnu({super.key});
+class SignUpAtualizarOnu extends StatefulWidget {
+  const SignUpAtualizarOnu({super.key});
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _SignUpFormState extends State<SignUpCadastrarOnu> {
+class _SignUpFormState extends State<SignUpAtualizarOnu> {
   final _formKey = GlobalKey<FormState>();
 
   List<DropdownMenuItem<String>> modeloOnuList = [
@@ -303,13 +327,13 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
         print("Responsável: " + selectedResponsavel.toString());
         print("Descrição: " + descricao.text);
 
-        CadastrarOnuRepository().store(CadastrarOnu(
-          tipo_onu_estoque: selectedModel!,
-          serial_estoque: serial.text,
-          motivo_entrega: selectedMotivo!,
-          desc_estoque: descricao.text,
-          nome_responsavel: selectedResponsavel!,
-        ));
+        // CadastrarOnuRepository().store(CadastrarOnu(
+        //   tipo_onu_estoque: selectedModel!,
+        //   serial_estoque: serial.text,
+        //   motivo_entrega: selectedMotivo!,
+        //   desc_estoque: descricao.text,
+        //   nome_responsavel: selectedResponsavel!,
+        // ));
 
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Onu recebida com sucesso!')));
