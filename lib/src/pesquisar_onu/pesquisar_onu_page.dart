@@ -1,4 +1,3 @@
-import 'package:app_estoque/src/atualizar_onu/atualizar_onu_page.dart';
 import 'package:app_estoque/src/atualizar_onu/atualizar_onuu_page.dart';
 import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
 import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_repository.dart';
@@ -105,12 +104,19 @@ class _SerialFormState extends State<SerialPesquisarOnu> {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState?.save();
 
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(content: Text('Serial enviado para pesquisa.')));
         itemList = await PesquisarOnuRepository().index(PesquisarOnu(
           serial_estoque: serial.text,
         ));
 
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Serial enviado para pesquisa.')));
+        if (itemList.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Nada foi encontrado.')));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Opa achamos algo!')));
+        }
       }
 
       print(itemList);

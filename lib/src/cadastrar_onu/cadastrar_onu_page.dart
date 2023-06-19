@@ -1,9 +1,8 @@
 import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
+import 'package:app_estoque/src/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
-import 'package:app_estoque/src/auth/auth_service.dart';
-import 'package:provider/provider.dart';
 import 'dart:async';
 
 class CadastrarOnuPage extends StatefulWidget {
@@ -294,7 +293,7 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
       ),
     );
 
-    void onPressedSubmit() {
+    Future<void> onPressedSubmit() async {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState?.save();
         //imprime no console os dados.
@@ -304,7 +303,7 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
         print("Responsável: " + selectedResponsavel.toString());
         print("Descrição: " + descricao.text);
 
-        CadastrarOnuRepository().store(CadastrarOnu(
+        var resposta = await CadastrarOnuRepository().store(CadastrarOnu(
           tipo_onu_estoque: selectedModel!,
           serial_estoque: serial.text,
           motivo_entrega: selectedMotivo!,
@@ -312,19 +311,19 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
           nome_responsavel: selectedResponsavel!,
         ));
 
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Onu recebida com sucesso!')));
-
-        // Inicia o contador de 2 segundos
-        Timer(Duration(seconds: 2), () {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text(
-                  'Você será redirecionado para a página inicial. em 5 segundos')));
-          Timer(Duration(seconds: 5), () {
-            //Navega de volta para a rota inicial ("/home")
-            Navigator.pushReplacementNamed(context, '/home');
+        // faz verificação da resposta.
+        if (resposta == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Onu cadastrada com Sucesso!')));
+          //aguarda e retorna para a página inicial.
+          Timer(Duration(seconds: 4), () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
           });
-        });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Não foi possivel cadastrar a ONU.')));
+        }
       }
     }
 
@@ -332,10 +331,19 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
       Container(
         margin: const EdgeInsets.only(top: 25),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            backgroundColor: const Color.fromARGB(255, 0, 81, 255),
+          ),
           onPressed:
               onPressedSubmit, // Chama o método onPressedSubmit e envia os dados para o repository
           child: const Text(
             'Enviar',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
       ),

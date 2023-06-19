@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/auth/registration/registration_repository.dart';
 
-import '../../shared/components/app_scaffold.dart';
 import 'entities/registration.dart';
 
 class RegistrationPage extends StatefulWidget {

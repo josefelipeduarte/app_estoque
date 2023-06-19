@@ -1,7 +1,8 @@
-import 'dart:convert';
-
+import 'dart:async';
+import 'package:app_estoque/src/atualizar_onu/atualizar_onu_repository.dart';
+import 'package:app_estoque/src/atualizar_onu/entities/atualizar_onu.dart';
+import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_page.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class EditUser extends StatefulWidget {
   String estoqueId;
@@ -24,7 +25,6 @@ class EditUser extends StatefulWidget {
 
 class _EditUserState extends State<EditUser> {
   final TextEditingController _controllerSerial = new TextEditingController();
-  final TextEditingController _controllerTipoOnu = new TextEditingController();
   final TextEditingController _controllerMotivo = new TextEditingController();
   final TextEditingController _controllerDesEstoque =
       new TextEditingController();
@@ -33,7 +33,7 @@ class _EditUserState extends State<EditUser> {
   String estoqueId = '';
   String responsavel = '';
   String motivoEntrega = '';
-  String modeloOnu = '';
+  String tipoOnu = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -45,7 +45,7 @@ class _EditUserState extends State<EditUser> {
       _controllerDesEstoque.text = widget.descEstoque!;
       _controllerResp.text = widget.nomeResponsavel;
 
-      modeloOnu = widget.tipoOnu;
+      tipoOnu = widget.tipoOnu;
       responsavel = widget.nomeResponsavel;
       motivoEntrega = widget.motivoEntrega;
     });
@@ -69,10 +69,10 @@ class _EditUserState extends State<EditUser> {
           height: 30,
         ),
         DropdownButtonFormField<String>(
-          value: modeloOnu,
+          value: tipoOnu,
           onChanged: (value) {
             setState(() {
-              modeloOnu = value!;
+              tipoOnu = value!;
             });
           },
           decoration: InputDecoration(
@@ -214,11 +214,31 @@ class _EditUserState extends State<EditUser> {
   }
 
   editUser() async {
-    var responsavel = _controllerResp.text;
-    var motivo = _controllerMotivo.text;
+    var resp = responsavel;
+    var motivo = motivoEntrega;
+    var tipo = tipoOnu;
+    var descEstoque = _controllerDesEstoque.text;
+    var idEst = int.parse(estoqueId);
 
-    print("resultado final");
-    print(responsavel);
-    print(motivo);
+    var resposta = await AtualizarOnuRepository().update(AtualizarOnu(
+      tipo_onu_estoque: tipo,
+      motivo_entrega: motivo,
+      desc_estoque: descEstoque,
+      nome_responsavel: resp,
+      id: idEst,
+    ));
+    // faz verificação da resposta.
+    if (resposta == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Onu atualizada com sucesso.')));
+      //Aguarda um tempo e volta com o usuário para página de cadastro.
+      Timer(Duration(seconds: 4), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => PesquisarOnuPage()));
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Não foi possivel atualizar a ONU.')));
+    }
   }
 }
