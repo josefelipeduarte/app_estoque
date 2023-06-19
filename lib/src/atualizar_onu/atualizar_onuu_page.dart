@@ -8,7 +8,7 @@ class EditUser extends StatefulWidget {
   String serialEstoque;
   String tipoOnu;
   String motivoEntrega;
-  String descEstoque;
+  String? descEstoque;
   String nomeResponsavel;
 
   EditUser(
@@ -23,9 +23,17 @@ class EditUser extends StatefulWidget {
 }
 
 class _EditUserState extends State<EditUser> {
-  final TextEditingController _controllerFullName = new TextEditingController();
-  final TextEditingController _controllerEmail = new TextEditingController();
+  final TextEditingController _controllerSerial = new TextEditingController();
+  final TextEditingController _controllerTipoOnu = new TextEditingController();
+  final TextEditingController _controllerMotivo = new TextEditingController();
+  final TextEditingController _controllerDesEstoque =
+      new TextEditingController();
+  final TextEditingController _controllerResp = new TextEditingController();
+
   String estoqueId = '';
+  String responsavel = '';
+  String motivoEntrega = '';
+  String modeloOnu = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -33,12 +41,13 @@ class _EditUserState extends State<EditUser> {
 
     setState(() {
       estoqueId = widget.estoqueId;
-      _controllerFullName.text = widget.serialEstoque;
-      _controllerEmail.text = widget.tipoOnu;
+      _controllerSerial.text = widget.serialEstoque;
+      _controllerDesEstoque.text = widget.descEstoque!;
+      _controllerResp.text = widget.nomeResponsavel;
 
-      print(widget.estoqueId);
-      print(widget.serialEstoque);
-      print(widget.tipoOnu);
+      modeloOnu = widget.tipoOnu;
+      responsavel = widget.nomeResponsavel;
+      motivoEntrega = widget.motivoEntrega;
     });
   }
 
@@ -59,28 +68,39 @@ class _EditUserState extends State<EditUser> {
         SizedBox(
           height: 30,
         ),
-        TextField(
-          controller: _controllerFullName,
-          cursorColor: Colors.blue,
+        DropdownButtonFormField<String>(
+          value: modeloOnu,
+          onChanged: (value) {
+            setState(() {
+              modeloOnu = value!;
+            });
+          },
           decoration: InputDecoration(
-            hintText: "FullName",
+            labelText: 'Tipo de ONU',
+            prefixIcon: Icon(Icons.all_inbox),
+            border: OutlineInputBorder(),
           ),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        TextField(
-          controller: _controllerEmail,
-          cursorColor: Colors.blue,
-          decoration: InputDecoration(
-            hintText: "Email",
-          ),
+          items: [
+            DropdownMenuItem(
+              value: '501',
+              child: Text('501'),
+            ),
+            DropdownMenuItem(
+              value: '101',
+              child: Text('101'),
+            ),
+            DropdownMenuItem(
+              value: '411',
+              child: Text('411'),
+            ),
+          ],
         ),
         SizedBox(
           height: 40,
         ),
         TextField(
-          controller: _controllerEmail,
+          controller: _controllerSerial,
+          enabled: false,
           keyboardType: TextInputType.text,
           maxLines: 1,
           decoration: InputDecoration(
@@ -97,27 +117,108 @@ class _EditUserState extends State<EditUser> {
         SizedBox(
           height: 40,
         ),
+        DropdownButtonFormField<String>(
+          value: motivoEntrega,
+          onChanged: (value) {
+            setState(() {
+              motivoEntrega = value!;
+            });
+          },
+          decoration: InputDecoration(
+            labelText: 'Motivo de Entrega',
+            prefixIcon: Icon(Icons.saved_search),
+            border: OutlineInputBorder(),
+          ),
+          items: [
+            DropdownMenuItem(
+              value: 'Apresenta Defeito',
+              child: Text('Equipamento Apresenta Defeito'),
+            ),
+            DropdownMenuItem(
+              value: 'Devolucao a Central',
+              child: Text('Equipamento Devolvido a central'),
+            ),
+            DropdownMenuItem(
+              value: 'Retirada',
+              child: Text('Equipamento de Retirada'),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 40,
+        ),
+        DropdownButtonFormField<String>(
+          value: responsavel,
+          onChanged: (value) {
+            setState(() {
+              responsavel = value!;
+            });
+          },
+          decoration: InputDecoration(
+            labelText: 'Responsável',
+            prefixIcon: Icon(Icons.people_alt_sharp),
+            border: OutlineInputBorder(),
+          ),
+          items: [
+            DropdownMenuItem(
+              value: 'Adriano',
+              child: Text('Adriano'),
+            ),
+            DropdownMenuItem(
+              value: 'Andreza',
+              child: Text('Andreza'),
+            ),
+            // Adicione mais itens do dropdown conforme necessário
+          ],
+        ),
+        SizedBox(
+          height: 40,
+        ),
+        TextField(
+          controller: _controllerDesEstoque,
+          keyboardType: TextInputType.text,
+          maxLines: 3,
+          decoration: InputDecoration(
+            hintText: 'Descrição',
+            prefixIcon: Icon(Icons.chat_bubble),
+            labelText: 'Descrição',
+            labelStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            border: OutlineInputBorder(),
+          ),
+        ),
+        SizedBox(
+          height: 40,
+        ),
         TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            textStyle: const TextStyle(fontSize: 20),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            backgroundColor: const Color.fromARGB(255, 0, 81, 255),
           ),
           onPressed: () {
             editUser();
           },
-          child: const Text('Gradient'),
+          child: Text(
+            'Atualizar',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       ],
     );
   }
 
   editUser() async {
-    var fullName = _controllerFullName.text;
-    var email = _controllerEmail.text;
+    var responsavel = _controllerResp.text;
+    var motivo = _controllerMotivo.text;
 
     print("resultado final");
-    print(fullName);
-    print(email);
+    print(responsavel);
+    print(motivo);
   }
 }

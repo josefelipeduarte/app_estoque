@@ -195,12 +195,17 @@ class ItemListWidget extends StatelessWidget {
         }
 
         return ListTile(
-          title: Text('ID: ${item['id']}'),
-          subtitle: Text('Serial: ${item['serial_estoque']}'),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('ID: ${item['id']}'),
+              Text('Serial: ${item['serial_estoque']}'),
+            ],
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -215,28 +220,50 @@ class ItemListWidget extends StatelessWidget {
                               Navigator.of(context).pop(); // Fechar o diálogo
                             },
                           ),
-                          TextButton(
-                            child: Text('Excluir'),
+                          TextButton.icon(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.red), // Cor do ícone e texto
+                            ),
                             onPressed: () async {
                               deleteUser(item);
-
                               Navigator.of(context).pop(); // Fechar o diálogo
                             },
+                            icon: Icon(Icons.delete), // Ícone de lixeira
+                            label: Text('Deletar',
+                                style: TextStyle(
+                                    color: Colors
+                                        .red)), // Texto "Deletar" com cor vermelha
                           ),
                         ],
                       );
                     },
                   );
                 },
-                child: Text('Deletar'),
+                icon: Icon(Icons.delete),
+                label: Text('Deletar'),
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 4),
               ElevatedButton(
                 onPressed: () {
                   editOnu(item);
                 },
-                child: Text('Editar'),
-              ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 0, 81, 255),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.edit),
+                    SizedBox(width: 4),
+                    Text('Editar'),
+                  ],
+                ),
+              )
             ],
           ),
         );
