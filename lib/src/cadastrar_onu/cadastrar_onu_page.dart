@@ -310,9 +310,9 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
           desc_estoque: descricao.text,
           nome_responsavel: selectedResponsavel!,
         ));
-
-        // faz verificação da resposta.
-        if (resposta == true) {
+        print(resposta);
+        // faz verificação da resposta == false ou seja gravado.
+        if (resposta == false) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Onu cadastrada com Sucesso!')));
           //aguarda e retorna para a página inicial.
