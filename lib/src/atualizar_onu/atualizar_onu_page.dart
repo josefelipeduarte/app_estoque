@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:app_estoque/src/atualizar_onu/entities/atualizar_onu.dart';
-import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
 import 'package:flutter/material.dart';
 import 'package:app_estoque/src/atualizar_onu/atualizar_onu_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
@@ -75,7 +74,6 @@ class SignUpAtualizarOnu extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpAtualizarOnu> {
   final _formKey = GlobalKey<FormState>();
-
   List<DropdownMenuItem<String>> modeloOnuList = [
     DropdownMenuItem(
       value: '501',

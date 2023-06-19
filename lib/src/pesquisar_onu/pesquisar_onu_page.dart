@@ -1,4 +1,5 @@
 import 'package:app_estoque/src/atualizar_onu/atualizar_onu_page.dart';
+import 'package:app_estoque/src/atualizar_onu/atualizar_onuu_page.dart';
 import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
 import 'package:app_estoque/src/pesquisar_onu/pesquisar_onu_repository.dart';
 import 'package:flutter/material.dart';
@@ -165,6 +166,34 @@ class ItemListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = itemList[index];
 
+        editOnu(item) {
+          var estoqueId = item['id'].toString();
+          var serialEstoque = item['serial_estoque'].toString();
+          var tipoOnu = item['tipo_onu_estoque'].toString();
+          var motivoEntrega = item['motivo_entrega'].toString();
+          var descEstoque = item['motivo_entrega'].toString();
+          var nomeResponsavel = item['nome_responsavel'].toString();
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EditUser(
+                        estoqueId: estoqueId,
+                        serialEstoque: serialEstoque,
+                        tipoOnu: tipoOnu,
+                        motivoEntrega: motivoEntrega,
+                        descEstoque: descEstoque,
+                        nomeResponsavel: nomeResponsavel,
+                      )));
+        }
+
+        deleteUser(item) async {
+          String id = item['id'].toString();
+          int parsedId = int.parse(id);
+
+          await PesquisarOnuRepository().deleteSerial(parsedId);
+        }
+
         return ListTile(
           title: Text('ID: ${item['id']}'),
           subtitle: Text('Serial: ${item['serial_estoque']}'),
@@ -189,11 +218,7 @@ class ItemListWidget extends StatelessWidget {
                           TextButton(
                             child: Text('Excluir'),
                             onPressed: () async {
-                              String id = item['id'].toString();
-                              int parsedId = int.parse(id);
-
-                              await PesquisarOnuRepository()
-                                  .deleteSerial(parsedId);
+                              deleteUser(item);
 
                               Navigator.of(context).pop(); // Fechar o diálogo
                             },
@@ -208,16 +233,7 @@ class ItemListWidget extends StatelessWidget {
               SizedBox(width: 8),
               ElevatedButton(
                 onPressed: () {
-                  // Implemente a lógica para a ação de editar o item com o ID correspondente
-                  String id = item['id'].toString();
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AtualizarOnuPage(
-                              id: id,
-                            )),
-                  );
+                  editOnu(item);
                 },
                 child: Text('Editar'),
               ),
