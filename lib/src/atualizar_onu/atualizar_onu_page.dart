@@ -36,16 +36,21 @@ class _FormPageState extends State<AtualizarOnuPage> {
       desc_estoque: '',
       nome_responsavel: '',
     ));
-    print('Consultando dados com ID 1: $id');
+    print('Atualiza Onu: Consultando dados com ID 1: $id');
+
+    String tipoOnuEstoque = '';
+    String serialEstoque = '';
+    String motivoEntrega = '';
+    String descEstoque = '';
+    String nomeResponsavel = '';
+
     for (var item in lista) {
       // Acesse os valores individuais do item, por exemplo:
-      String tipoOnuEstoque = item["tipo_onu_estoque"];
-      String serialEstoque = item["serial_estoque"];
-      String motivoEntrega = item["motivo_entrega"];
-      String descEstoque = item["desc_estoque"];
-      String nomeResponsavel = item["nome_responsavel"];
-
-      print(tipoOnuEstoque);
+      tipoOnuEstoque = item["tipo_onu_estoque"];
+      serialEstoque = item["serial_estoque"];
+      motivoEntrega = item["motivo_entrega"];
+      descEstoque = item["desc_estoque"];
+      nomeResponsavel = item["nome_responsavel"];
     }
   }
 
