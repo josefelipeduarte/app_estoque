@@ -54,7 +54,7 @@ class AuthService with ChangeNotifier {
   Future<User?> userData() async {
     final response = await http.get(
       Uri.parse(
-        '$_apiBasePath/api/auth/user',
+        '$_apiBasePath/api/auth/usuario',
       ),
       headers: await _header(true),
     );

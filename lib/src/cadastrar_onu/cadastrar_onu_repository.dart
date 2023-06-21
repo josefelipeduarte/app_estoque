@@ -17,7 +17,7 @@ class CadastrarOnuRepository {
       "motivo_entrega": onu.motivo_entrega,
       "desc_estoque": onu.desc_estoque,
       "nome_responsavel": onu.nome_responsavel,
-      "user": "José Felipe"
+      "user": onu.user,
     };
 
     final response = await http.post(

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       child: Center(
         child: ElevatedButton(
           onPressed: () {},
-          child: Text(authService.user?.login ?? ''),
+          child: Text(authService.user?.login ?? 'sei'),
         ),
       ),
     );

@@ -1,9 +1,12 @@
+import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
 import 'package:app_estoque/src/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
 import 'dart:async';
+
+import 'package:provider/provider.dart';
 
 class CadastrarOnuPage extends StatefulWidget {
   const CadastrarOnuPage({super.key});
@@ -93,8 +96,17 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
   }
 
   List<Widget> getFormWidget() {
-    List<Widget> formWidget = [];
+    String? usuarioAtivador;
 
+    void getUser(BuildContext context) {
+      final authService = Provider.of<AuthService>(context, listen: false);
+
+      usuarioAtivador = authService.user?.name ?? '';
+    }
+
+    getUser(context);
+
+    List<Widget> formWidget = [];
     formWidget.add(
       Row(
         children: const [
@@ -294,7 +306,7 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
     );
 
     Future<void> onPressedSubmit() async {
-      if (_formKey.currentState!.validate()) {
+      if ((_formKey.currentState!.validate()) && (usuarioAtivador != null)) {
         _formKey.currentState?.save();
         //imprime no console os dados.
         print("Modelo ONU: " + selectedModel.toString());
@@ -309,8 +321,9 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
           motivo_entrega: selectedMotivo!,
           desc_estoque: descricao.text,
           nome_responsavel: selectedResponsavel!,
+          user: usuarioAtivador,
         ));
-        print(resposta);
+
         // faz verificação da resposta == false ou seja gravado.
         if (resposta == false) {
           ScaffoldMessenger.of(context).showSnackBar(

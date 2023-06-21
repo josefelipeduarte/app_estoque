@@ -177,7 +177,7 @@ class ItemListWidget extends StatelessWidget {
           var serialEstoque = item['serial_estoque'].toString();
           var tipoOnu = item['tipo_onu_estoque'].toString();
           var motivoEntrega = item['motivo_entrega'].toString();
-          var descEstoque = item['motivo_entrega'].toString();
+          var descEstoque = item['desc_estoque'].toString();
           var nomeResponsavel = item['nome_responsavel'].toString();
 
           Navigator.push(

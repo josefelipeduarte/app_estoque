@@ -15,8 +15,7 @@ class AtualizarOnuRepository {
       "tipo_onu_estoque": onu.tipo_onu_estoque,
       "motivo_entrega": onu.motivo_entrega,
       "desc_estoque": onu.desc_estoque,
-      "nome_responsavel": onu.nome_responsavel,
-      "user": "José Felipe"
+      "nome_responsavel": onu.nome_responsavel
     };
 
     final response = await http.put(

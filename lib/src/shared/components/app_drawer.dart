@@ -42,13 +42,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.popAndPushNamed(context, '/home');
             },
           ),
-          //Desabilitado por enquanto, posterior para cadastrar os usuários que acessam o sistema
-          // ListTile(
-          //   title: const Text('Cadastrar Usuário'),
-          //   onTap: () {
-          //     Navigator.pushNamed(context, '/auth/registration');
-          //   },
-          // ),
+
           ListTile(
             title: const Text('Cadastrar ONU'),
             onTap: () {
@@ -62,10 +56,29 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Escolas'),
+            title: Divider(
+              color: Colors.grey,
+              height: 1,
+            ),
+          ),
+          //somente cargo admin pode cadastrar usuário.
+          ListTile(
+            title: const Text('Cadastrar Usuários'),
             onTap: () {
-              Navigator.pushNamed(context, '/schools/list');
+              Navigator.pushNamed(context, '/auth/registration');
             },
+          ),
+          ListTile(
+            title: const Text('Listar Usuários'),
+            onTap: () {
+              Navigator.pushNamed(context, '/auth/registration');
+            },
+          ),
+          ListTile(
+            title: Divider(
+              color: Colors.grey,
+              height: 1,
+            ),
           ),
           ListTile(
             title: const Text('Sair'),
