@@ -9,11 +9,10 @@ class ReportsRepository {
   static const String _apiBasePath = ConstConfigs.apiUrl;
   final _storage = const FlutterSecureStorage();
 
-  Future<List<AmountPerClassification>> amountPerClassification(
-      int year) async {
+  Future<List<quantPorTipo>> quantPorTipoMes(int year) async {
     final response = await http.get(
       Uri.parse(
-        '$_apiBasePath/api/reports/amountPerClassification/$year',
+        '$_apiBasePath/api/serial_painel/quantPorTipo/$year',
       ),
       headers: await _header(),
     );
@@ -24,11 +23,11 @@ class ReportsRepository {
 
     var mapedResponse = jsonDecode(response.body);
 
-    List<AmountPerClassification> output = [];
+    List<quantPorTipo> output = [];
     for (var i = 0; i < mapedResponse.length; i++) {
       output.add(
-        AmountPerClassification(
-          classification: mapedResponse[i]["classification"] ?? "default",
+        quantPorTipo(
+          classification: mapedResponse[i]["tipo_onu_estoque"] ?? "default",
           total: mapedResponse[i]["total"],
         ),
       );
@@ -40,7 +39,7 @@ class ReportsRepository {
   Future<List<AmountPerMonth>> amountPerMonth(int year) async {
     final response = await http.get(
       Uri.parse(
-        '$_apiBasePath/api/reports/amountPerMonth/$year',
+        '$_apiBasePath/api/serial_painel/quantMes/$year',
       ),
       headers: await _header(),
     );
@@ -64,33 +63,6 @@ class ReportsRepository {
     return output;
   }
 
-  Future<List<AmountPerSchool>> amountPerSchool(int year) async {
-    final response = await http.get(
-      Uri.parse(
-        '$_apiBasePath/api/reports/amountPerSchool/$year',
-      ),
-      headers: await _header(),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception("Falha ao buscar o relatório.");
-    }
-
-    var mapedResponse = jsonDecode(response.body);
-
-    List<AmountPerSchool> output = [];
-    for (var i = 0; i < mapedResponse.length; i++) {
-      output.add(
-        AmountPerSchool(
-          school: mapedResponse[i]["name"],
-          total: mapedResponse[i]["total"],
-        ),
-      );
-    }
-
-    return output;
-  }
-
   Future<Map<String, String>> _header() async {
     String? authToken = await _storage.read(key: _authTokenKey);
 
@@ -102,11 +74,11 @@ class ReportsRepository {
   }
 }
 
-class AmountPerClassification {
+class quantPorTipo {
   final String classification;
   final int total;
 
-  AmountPerClassification({required this.classification, required this.total});
+  quantPorTipo({required this.classification, required this.total});
 
   @override
   String toString() {

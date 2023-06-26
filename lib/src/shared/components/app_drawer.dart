@@ -56,6 +56,12 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text('Painel test'),
+            onTap: () {
+              Navigator.pushNamed(context, '/serial_onu/painel');
+            },
+          ),
+          ListTile(
             title: Divider(
               color: Colors.grey,
               height: 1,

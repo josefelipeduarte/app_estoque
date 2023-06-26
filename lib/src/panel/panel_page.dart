@@ -15,16 +15,14 @@ class _PanelPageState extends State<PanelPage> {
 
   List<DataRow> apcWidgetList = [];
   List<DataRow> apmWidgetList = [];
-  List<DataRow> apsWidgetList = [];
 
   @override
   initState() {
     setState(() {
       apcWidgetList = [];
       apmWidgetList = [];
-      apsWidgetList = [];
 
-      repository.amountPerClassification(selectedYear).then((value) {
+      repository.quantPorTipoMes(selectedYear).then((value) {
         setState(() {
           apcWidgetList = mapApcList(value);
         });
@@ -35,18 +33,12 @@ class _PanelPageState extends State<PanelPage> {
           apmWidgetList = mapApmList(value);
         });
       });
-
-      repository.amountPerSchool(selectedYear).then((value) {
-        setState(() {
-          apsWidgetList = mapApsList(value);
-        });
-      });
     });
   }
 
   List<int> getYearRange() {
     const int startYear = 2000;
-    const int endYear = 2100;
+    const int endYear = 2030;
     final List<int> yearList = [];
 
     for (int year = startYear; year <= endYear; year++) {
@@ -56,26 +48,22 @@ class _PanelPageState extends State<PanelPage> {
     return yearList;
   }
 
-  List<DataRow> mapApcList(
-      List<AmountPerClassification> amountPerClassificationList) {
-    Map<String, MaterialColor> colors = {
-      "vermelho": Colors.red,
-      "laranja": Colors.orange,
-      "amarelo": Colors.yellow,
-      "verde": Colors.green,
-      "azul": Colors.blue,
-      "default": Colors.grey,
+  List<DataRow> mapApcList(List<quantPorTipo> amountPerClassificationList) {
+    Map<String, String> tipos = {
+      "101": "101",
+      "411": "411",
+      "501": "501",
     };
 
+//Cria os quadradinhos com cores
     List<DataRow> output = [];
     for (var element in amountPerClassificationList) {
       output.add(
         DataRow(
           cells: <DataCell>[
             DataCell(
-              Icon(
-                Icons.rectangle_rounded,
-                color: colors[element.classification],
+              Text(
+                tipos[element.classification]!,
               ),
             ),
             DataCell(Text(element.total.toString())),
@@ -103,22 +91,6 @@ class _PanelPageState extends State<PanelPage> {
     return output;
   }
 
-  List<DataRow> mapApsList(List<AmountPerSchool> amountsPerSchool) {
-    List<DataRow> output = [];
-    for (var element in amountsPerSchool) {
-      output.add(
-        DataRow(
-          cells: <DataCell>[
-            DataCell(Text(element.school)),
-            DataCell(Text(element.total.toString())),
-          ],
-        ),
-      );
-    }
-
-    return output;
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -130,7 +102,7 @@ class _PanelPageState extends State<PanelPage> {
             Row(
               children: [
                 const Text(
-                  'Denúncias no Ano de:',
+                  'Recebidas no Ano de:',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -151,12 +123,9 @@ class _PanelPageState extends State<PanelPage> {
                     setState(() {
                       apcWidgetList = [];
                       apmWidgetList = [];
-                      apsWidgetList = [];
 
                       selectedYear = selected!;
-                      repository
-                          .amountPerClassification(selectedYear)
-                          .then((value) {
+                      repository.quantPorTipoMes(selectedYear).then((value) {
                         setState(() {
                           apcWidgetList = mapApcList(value);
                         });
@@ -167,12 +136,6 @@ class _PanelPageState extends State<PanelPage> {
                           apmWidgetList = mapApmList(value);
                         });
                       });
-
-                      repository.amountPerSchool(selectedYear).then((value) {
-                        setState(() {
-                          apsWidgetList = mapApsList(value);
-                        });
-                      });
                     });
                   },
                 ),
@@ -180,33 +143,24 @@ class _PanelPageState extends State<PanelPage> {
             ),
             const SizedBox(height: 16),
             const Text(
-              "Denúncias Por Classicação",
+              "Onu Por Tipo",
               style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            TableCriticality(
+            TableTipo(
               apcWidgetList: apcWidgetList,
             ),
             const SizedBox(height: 8),
             const Text(
-              "Denúncias Por Período",
+              "Quantidade Recebida por Mês",
               style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
             TablePerPeriod(apmWidgetList: apmWidgetList),
-            const SizedBox(height: 8),
-            const Text(
-              "Denúncias Por Escolas",
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            TablePerSchool(apsWidgetList: apsWidgetList),
           ],
         ),
       ),
@@ -214,9 +168,9 @@ class _PanelPageState extends State<PanelPage> {
   }
 }
 
-class TableCriticality extends StatelessWidget {
+class TableTipo extends StatelessWidget {
   List<DataRow> apcWidgetList;
-  TableCriticality({
+  TableTipo({
     super.key,
     required this.apcWidgetList,
   });
@@ -228,7 +182,7 @@ class TableCriticality extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'Criticidade',
+              'Modelo',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -236,7 +190,7 @@ class TableCriticality extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'Qtd.',
+              'Quantidade',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -268,7 +222,7 @@ class TablePerPeriod extends StatelessWidget {
         DataColumn(
           label: Expanded(
             child: Text(
-              'Qtd.',
+              'Quantidade',
               style: TextStyle(
                 fontStyle: FontStyle.italic,
               ),
@@ -277,40 +231,6 @@ class TablePerPeriod extends StatelessWidget {
         ),
       ],
       rows: apmWidgetList,
-    );
-  }
-}
-
-class TablePerSchool extends StatelessWidget {
-  List<DataRow> apsWidgetList = [];
-  TablePerSchool({super.key, required this.apsWidgetList});
-
-  @override
-  Widget build(BuildContext context) {
-    return DataTable(
-      columns: const <DataColumn>[
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Escola',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-        ),
-        DataColumn(
-          label: Expanded(
-            child: Text(
-              'Qtd.',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-        ),
-      ],
-      rows: apsWidgetList,
     );
   }
 }
