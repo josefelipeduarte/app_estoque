@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/auth/login_page.dart';
 import 'package:app_estoque/src/auth/registration/registration_page.dart';
-import 'package:app_estoque/src/home/home_page.dart';
 import 'package:app_estoque/src/shared/themes/color_schemes.g.dart';
 
 void main() {
@@ -47,7 +46,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/auth/login': (context) => const LoginPage(),
         '/auth/registration': (context) => const RegistrationPage(),
-        '/home': (context) => const HomePage(),
         '/serial_onu/cadastrar': (context) => const CadastrarOnuPage(),
         '/serial_onu/pesquisar': (context) => const PesquisarOnuPage(),
         '/serial_onu/painel': (context) => PanelPage(),

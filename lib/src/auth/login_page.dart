@@ -97,7 +97,7 @@ class FormItems extends StatelessWidget {
             child: const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "App Estoque Master \n Cadastre aqui os seriais de ONUS recebidas no suporte.",
+                "App Estoque \n Cadastre aqui os seriais de ONUS recebidas no suporte.",
                 style: TextStyle(
                     color: Color.fromARGB(255, 0, 81, 255), fontSize: 20),
                 textAlign: TextAlign.center,

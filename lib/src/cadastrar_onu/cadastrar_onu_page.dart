@@ -1,6 +1,6 @@
 import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:app_estoque/src/cadastrar_onu/entities/cadastrar_onu.dart';
-import 'package:app_estoque/src/home/home_page.dart';
+import 'package:app_estoque/src/panel/panel_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
@@ -330,8 +330,8 @@ class _SignUpFormState extends State<SignUpCadastrarOnu> {
               const SnackBar(content: Text('Onu cadastrada com Sucesso!')));
           //aguarda e retorna para a página inicial.
           Timer(Duration(seconds: 4), () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => PanelPage()));
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
