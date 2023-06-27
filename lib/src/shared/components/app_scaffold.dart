@@ -12,7 +12,7 @@ class AppScaffold extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text(pageTitle ?? 'Escolas Seguras'),
+        title: Text(pageTitle ?? 'App Estoque'),
       ),
       body: child,
     );

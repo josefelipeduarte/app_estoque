@@ -20,9 +20,9 @@ class RegistrationRepository {
     };
 
     final response = await http.post(
-      Uri.parse('$_apiBasePath/api/auth/registration'),
-      body: json.encode(payload),
-      headers: _headers(),
+      Uri.parse('$_apiBasePath/api/auth/registrar'),
+      body: jsonEncode(payload),
+      headers: await _header(),
     );
 
     return (
@@ -31,10 +31,13 @@ class RegistrationRepository {
     );
   }
 
-  Map<String, String> _headers() {
+  Future<Map<String, String>> _header() async {
+    String? authToken = await _storage.read(key: _authTokenKey);
+
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Authorization': 'Bearer $authToken',
     };
   }
 }
