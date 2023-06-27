@@ -55,8 +55,8 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Image.network(
-                  'https://media.tenor.com/1G7KLUiquh0AAAAi/typing-fast.gif',
+                Image.asset(
+                  'lib/src/assets/images/typing-fast.gif',
                   width: 100, // Defina a largura desejada da imagem
                   height: 100, // Defina a altura desejada da imagem
                 ),

@@ -1,4 +1,4 @@
-package com.example.safe_schools
+package com.example.app_estoque
 
 import io.flutter.embedding.android.FlutterActivity
 
