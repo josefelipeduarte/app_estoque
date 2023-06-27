@@ -1,6 +1,8 @@
+import 'package:app_estoque/src/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:app_estoque/src/panel/repositories/reports_repository.dart';
 import 'package:app_estoque/src/shared/components/app_scaffold.dart';
+import 'package:provider/provider.dart';
 
 class PanelPage extends StatefulWidget {
   @override
@@ -91,14 +93,65 @@ class _PanelPageState extends State<PanelPage> {
     return output;
   }
 
+  String? usuarioAtivador;
+  void getUser(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    usuarioAtivador = authService.user?.name ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Passa contexto para getUser que retoran o nome usuário
+    getUser(context);
     return AppScaffold(
-      pageTitle: "Painel",
+      pageTitle: "Inicio",
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Row(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Seja bem vindo(a): ',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: usuarioAtivador,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors
+                                .red, // Define a cor desejada para o usuário ativo
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                ],
+              ),
+            ),
+            const Row(
+              children: [
+                SizedBox(width: 8),
+                Expanded(
+                  child: Divider(
+                    color: Colors.grey,
+                    height: 1,
+                  ),
+                ),
+                SizedBox(width: 8),
+              ],
+            ),
             Row(
               children: [
                 const Text(

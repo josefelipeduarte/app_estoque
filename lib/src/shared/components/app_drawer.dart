@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .popUntil((route) => !Navigator.of(context).canPop());
-              Navigator.popAndPushNamed(context, '/home');
+              Navigator.popAndPushNamed(context, '/serial_onu/painel');
             },
           ),
 
@@ -55,13 +55,8 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/serial_onu/pesquisar');
             },
           ),
-          ListTile(
-            title: const Text('Painel test'),
-            onTap: () {
-              Navigator.pushNamed(context, '/serial_onu/painel');
-            },
-          ),
-          ListTile(
+
+          const ListTile(
             title: Divider(
               color: Colors.grey,
               height: 1,
@@ -80,7 +75,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/auth/registration');
             },
           ),
-          ListTile(
+          const ListTile(
             title: Divider(
               color: Colors.grey,
               height: 1,

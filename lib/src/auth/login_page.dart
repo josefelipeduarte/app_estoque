@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
             authService.initUser().then((_) {
               if (authService.user != null) {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/serial_onu/painel');
               }
             });
           }
@@ -39,10 +39,10 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'App Estoque',
               style: TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
@@ -118,7 +118,6 @@ class FormItems extends StatelessWidget {
               hintStyle:
                   const TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
-            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(
             height: 8.0,
@@ -138,8 +137,6 @@ class FormItems extends StatelessWidget {
               hintStyle:
                   const TextStyle(color: Color.fromARGB(255, 0, 81, 255)),
             ),
-            style: const TextStyle(color: Colors.black),
-            obscureText: true,
           ),
           const SizedBox(
             height: 8.0,
@@ -153,7 +150,7 @@ class FormItems extends StatelessWidget {
                     (value) {
                       if (value == true) {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/serial_onu/painel');
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
