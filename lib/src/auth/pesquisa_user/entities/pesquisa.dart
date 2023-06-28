@@ -1,11 +1,11 @@
-class Registration {
+class pesquisa {
   final int? id;
-  final String name;
-  final String password;
-  final String email;
+  final String? name;
+  final String? password;
+  final String? email;
   final int? admin;
 
-  Registration({
+  pesquisa({
     this.id,
     required this.name,
     required this.password,

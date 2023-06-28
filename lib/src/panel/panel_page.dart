@@ -102,7 +102,6 @@ class _PanelPageState extends State<PanelPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Passa contexto para getUser que retoran o nome usuário
     getUser(context);
     return AppScaffold(
       pageTitle: "Inicio",
@@ -129,8 +128,7 @@ class _PanelPageState extends State<PanelPage> {
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors
-                                .red, // Define a cor desejada para o usuário ativo
+                            color: Colors.red,
                           ),
                         ),
                       ],
@@ -202,8 +200,18 @@ class _PanelPageState extends State<PanelPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            TableTipo(
-              apcWidgetList: apcWidgetList,
+            FutureBuilder(
+              future: Future.delayed(
+                  const Duration(seconds: 5)), // Aguarda 5 segundos
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // Exibe o indicador de carregamento centralizado
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  // Atraso concluído, exibe o child desejado
+                  return TableTipo(apcWidgetList: apcWidgetList);
+                }
+              },
             ),
             const SizedBox(height: 8),
             const Text(
@@ -213,7 +221,19 @@ class _PanelPageState extends State<PanelPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            TablePerPeriod(apmWidgetList: apmWidgetList),
+            FutureBuilder(
+              future: Future.delayed(
+                  const Duration(seconds: 5)), // Aguarda 5 segundos
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // Exibe o indicador de carregamento centralizado
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  // Atraso concluído, exibe o child desejado
+                  return TablePerPeriod(apmWidgetList: apmWidgetList);
+                }
+              },
+            ),
           ],
         ),
       ),

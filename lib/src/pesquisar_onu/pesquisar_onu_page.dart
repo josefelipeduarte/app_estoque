@@ -62,8 +62,8 @@ class _SerialFormState extends State<SerialPesquisarOnu> {
     formWidget.add(
       Container(
         margin: const EdgeInsets.only(top: 35),
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             Icon(Icons.key),
             SizedBox(width: 8),
             Text(
@@ -166,6 +166,8 @@ class ItemListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
     return ListView.builder(
       shrinkWrap: true,
       itemCount: itemList.length,
@@ -213,46 +215,59 @@ class ItemListWidget extends StatelessWidget {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Confirmação'),
-                        content: Text('Tem certeza que deseja excluir o item?'),
-                        actions: [
-                          TextButton(
-                            child: Text('Cancelar'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Fechar o diálogo
-                            },
-                          ),
-                          TextButton.icon(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.red), // Cor do ícone e texto
+                  if (authService.user!.isAdmin) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirmação'),
+                          content:
+                              Text('Tem certeza que deseja excluir o item?'),
+                          actions: [
+                            TextButton(
+                              child: Text('Cancelar'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Fechar o diálogo
+                              },
                             ),
-                            onPressed: () async {
-                              deleteUser(item);
-                              Navigator.of(context).pop(); // Fechar o diálogo
-                            },
-                            icon: Icon(Icons.delete), // Ícone de lixeira
-                            label: Text('Deletar',
-                                style: TextStyle(
-                                    color: Colors
-                                        .red)), // Texto "Deletar" com cor vermelha
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                            TextButton.icon(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.red), // Cor do ícone e texto
+                              ),
+                              onPressed: () async {
+                                deleteUser(item);
+
+                                Navigator.of(context).pop(); // Fechar o diálogo
+                              },
+                              icon: Icon(Icons.delete), // Ícone de lixeira
+                              label: const Text('Deletar',
+                                  style: TextStyle(
+                                      color: Colors
+                                          .red)), // Texto "Deletar" com cor vermelha
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Sem permissão para deletar')));
+                  }
                 },
-                icon: Icon(Icons.delete),
-                label: Text('Deletar'),
+                icon: const Icon(Icons.delete),
+                label: const Text('Deletar'),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               ElevatedButton(
                 onPressed: () {
-                  editOnu(item);
+                  if (authService.user!.isAdmin) {
+                    editOnu(item);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Sem permissão para editar.')));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -261,7 +276,7 @@ class ItemListWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.edit),

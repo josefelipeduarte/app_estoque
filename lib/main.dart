@@ -1,3 +1,4 @@
+import 'package:app_estoque/src/auth/pesquisa_user/pesquisaUser_page.dart';
 import 'package:app_estoque/src/cadastrar_onu/cadastrar_onu_page.dart';
 import 'package:app_estoque/src/panel/panel_page.dart';
 import 'package:app_estoque/src/pesquisar_onu/entities/pesquisar_onu.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/auth/login': (context) => const LoginPage(),
         '/auth/registration': (context) => const RegistrationPage(),
+        '/auth/listarUsers': (context) => const ListarUsuarios(),
         '/serial_onu/cadastrar': (context) => const CadastrarOnuPage(),
         '/serial_onu/pesquisar': (context) => const PesquisarOnuPage(),
         '/serial_onu/painel': (context) => PanelPage(),

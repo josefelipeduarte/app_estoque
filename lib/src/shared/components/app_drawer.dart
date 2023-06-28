@@ -42,37 +42,36 @@ class AppDrawer extends StatelessWidget {
               Navigator.popAndPushNamed(context, '/serial_onu/painel');
             },
           ),
-
-          ListTile(
-            title: const Text('Cadastrar ONU'),
-            onTap: () {
-              Navigator.pushNamed(context, '/serial_onu/cadastrar');
-            },
-          ),
+          if (authService.user!.isAdmin) // Mostrar apenas se for admin
+            ListTile(
+              title: const Text('Cadastrar ONU'),
+              onTap: () {
+                Navigator.pushNamed(context, '/serial_onu/cadastrar');
+              },
+            ),
           ListTile(
             title: const Text('Pesquisar ONU'),
             onTap: () {
               Navigator.pushNamed(context, '/serial_onu/pesquisar');
             },
           ),
-
           const ListTile(
             title: Divider(
               color: Colors.grey,
               height: 1,
             ),
           ),
-          //somente cargo admin pode cadastrar usuário.
-          ListTile(
-            title: const Text('Cadastrar Usuários'),
-            onTap: () {
-              Navigator.pushNamed(context, '/auth/registration');
-            },
-          ),
+          if (authService.user!.isAdmin) // Mostrar apenas se for admin
+            ListTile(
+              title: const Text('Cadastrar Usuários'),
+              onTap: () {
+                Navigator.pushNamed(context, '/auth/registration');
+              },
+            ),
           ListTile(
             title: const Text('Listar Usuários'),
             onTap: () {
-              Navigator.pushNamed(context, '/auth/registration');
+              Navigator.pushNamed(context, '/auth/listarUsers');
             },
           ),
           const ListTile(

@@ -17,6 +17,7 @@ class RegistrationRepository {
       "name": registration.name,
       "password": registration.password,
       "email": registration.email,
+      "is_admin": registration.admin,
     };
 
     final response = await http.post(
